@@ -33,9 +33,26 @@ def scrape(url):
 
 def createJsonDump():
     with open("urls.txt",'r') as urllist, open('output.json','w') as outfile:
+        lineAmount = len(open("urls.txt").readlines())
+        print(lineAmount)
+        count = 1
+        outfile.write("[ \n")
         for url in urllist.readlines():
             data = scrape(url)
             if data:
                 json.dump(data,outfile)
-                outfile.write("\n")
+                if(count == lineAmount):
+                    outfile.write("\n")
+                else:
+                    outfile.write(", \n")
+                    count = count + 1 
+        outfile.write("]")
+
+def readJson():
+    tweets = []
+    for line in open('output.json', 'r'):
+        tweets.append(line)
+
+    print(tweets)
+
 
