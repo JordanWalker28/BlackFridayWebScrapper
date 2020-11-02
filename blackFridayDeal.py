@@ -2,6 +2,7 @@ from selectorlib import Extractor
 import requests 
 import json 
 from time import sleep
+import datetime
 
 e = Extractor.from_yaml_file('selectors.yml')
 
@@ -49,10 +50,16 @@ def createJsonDump():
         outfile.write("]")
 
 def readJson():
-    tweets = []
-    for line in open('output.json', 'r'):
-        tweets.append(line)
+    with open('output.json', 'r') as f:
+        products = json.load(f)
+    for product in products:
+        print(product['name'],',',product['price'],',',  product['price2'])
 
-    print(tweets)
 
+def getDate():
+    now = datetime.datetime.now()
+    return now
 
+readJson()
+date = getDate()
+print(date.day,date.month,date.year)
