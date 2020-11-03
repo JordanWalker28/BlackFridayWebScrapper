@@ -7,6 +7,9 @@ price:
 price2:
     css: '#priceblock_ourprice'
     type: Text
+price3:
+    css: '#priceblock_dealprice'
+    type: Text
 images:
     css: '.imgTagWrapper img'
     type: Attribute

@@ -3,6 +3,7 @@ import requests
 import json 
 from time import sleep
 import datetime
+import sys
 
 e = Extractor.from_yaml_file('selectors.yml')
 
@@ -50,16 +51,42 @@ def createJsonDump():
         outfile.write("]")
 
 def readJson():
+    date = getDate()
+    todayDate = (date.day,date.month,date.year)
     with open('output.json', 'r') as f:
         products = json.load(f)
     for product in products:
-        print(product['name'],',',product['price'],',',  product['price2'])
+        print(product['name'],',',product['price'],',',  product['price2'],',', todayDate)
 
 
 def getDate():
     now = datetime.datetime.now()
     return now
 
-readJson()
-date = getDate()
-print(date.day,date.month,date.year)
+def ScrapeData():
+    createJsonDump()
+    readJson()
+
+def AddUrl():
+    newUrl = input("Enter the URL address:")
+    file_object = open("urls.txt", "a")
+    file_object.write("\n" +newUrl)
+    file_object.close()
+
+def Exit():
+    sys.exit("program terminating")
+
+def main():
+    while(True):
+        print("1. Add URL")
+        print("2. Scrape Data")
+        print("3. Exit")
+        function = input("What would you like to do?")
+        if(function == "2"):
+            ScrapeData()
+        elif(function == "1"):
+            AddUrl()
+        else:
+            Exit()
+
+main()
