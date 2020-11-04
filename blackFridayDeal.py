@@ -4,6 +4,7 @@ import json
 from time import sleep
 import datetime
 import sys
+import yaml
 
 e = Extractor.from_yaml_file('selectors.yml')
 
@@ -76,16 +77,25 @@ def AddUrl():
 def Exit():
     sys.exit("program terminating")
 
+def createYaml():
+    fileName = input("Create a yaml file name: ")
+    with open(fileName+".yml", 'w') as f:
+        yamlFormat = input("Enter your YAML format: ")
+        data = yaml.dump(yamlFormat,f)
+
 def main():
     while(True):
         print("1. Add URL")
         print("2. Scrape Data")
         print("3. Exit")
+        print("4. Create Yaml file")
         function = input("What would you like to do?")
         if(function == "2"):
             ScrapeData()
         elif(function == "1"):
             AddUrl()
+        elif(function == "4"):
+            createYaml()
         else:
             Exit()
 
